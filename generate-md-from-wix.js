@@ -16,7 +16,7 @@ function toSlug(s) {
   if (!res.ok) throw new Error(`Failed to fetch: ${res.status} ${res.statusText}`);
   const articles = await res.json();
 
-  if (!fs.existsSync('abstracts')) fs.mkdirSync('abstracts');
+  if (!fs.existsSync('articles')) fs.mkdirSync('articles');
 
   for (const a of articles) {
     const rawId = a.eLocator || a.id || a._id;
@@ -29,7 +29,7 @@ function toSlug(s) {
       : String(a.authors || '').split(';').map(s => s.trim()).filter(Boolean);
 
     const frontMatter = `---
-layout: abstract.njk
+layout: article.njk
 title: "${safeTitle}"
 authors:
 ${authorList.map(x => `  - ${x}`).join('\n')}
@@ -38,11 +38,11 @@ journal: "Researchers’ Journal of Internal Medicine"
 doi: ${a.doi}
 pdfUrl: ${a.pdfUrl}
 wixUrl: ${a.wixUrl || `https://www.rjmedicine.org/publications/${rawId}`}
-permalink: "/${id}/"
+permalink: "/articles/${id}/"
 ---`;
 
     const body = `${a.abstract || ''}\n`;
-    const filename = `abstracts/${id}.md`;
+    const filename = `articles/${id}.md`;
     fs.writeFileSync(filename, `${frontMatter}\n\n${body}`, 'utf8');
     console.log(`✅ Created ${filename}`);
   }
