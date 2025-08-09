@@ -26,8 +26,9 @@ jobs:
         with:
           node-version: "20"
 
-      - name: Install deps (omit optional)
-        run: npm install --omit=optional --no-audit --no-fund
+      # Skip your repo deps entirely; just install Eleventy for the build
+      - name: Install Eleventy only
+        run: npm install --no-optional --no-audit --no-fund @11ty/eleventy@latest
 
       - name: Generate Markdown from Wix
         run: node generate-md-from-wix.js
