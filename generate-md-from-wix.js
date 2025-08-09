@@ -29,7 +29,7 @@ function toSlug(s) {
       : String(a.authors || '').split(';').map(s => s.trim()).filter(Boolean);
 
     const frontMatter = `---
-layout: article.njk
+layout: abstract.njk
 title: "${safeTitle}"
 authors:
 ${authorList.map(x => `  - ${x}`).join('\n')}
