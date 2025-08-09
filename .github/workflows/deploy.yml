@@ -26,8 +26,8 @@ jobs:
         with:
           node-version: "20"
 
-      - name: Install deps (skip optional)
-        run: npm ci --no-optional
+      - name: Install deps (omit optional)
+        run: npm install --omit=optional --no-audit --no-fund
 
       - name: Generate Markdown from Wix
         run: node generate-md-from-wix.js
