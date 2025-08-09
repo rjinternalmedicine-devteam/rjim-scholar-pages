@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>RJIM Abstracts (Scholar Mirror)</title>
+  <meta name="robots" content="index,follow" />
+</head>
+<body>
+  <h1>Researchers’ Journal of Internal Medicine — Abstracts</h1>
+  <p>This mirror lists abstracts with Google Scholar–friendly metadata. Click through for per-abstract pages (each includes <code>citation_*</code> tags) and links back to the full article on RJIM.</p>
+
+  <ul>
+    {% for item in collections.abstracts | reverse %}
+      <li>
+        <a href="{{ item.url }}">{{ item.data.title }}</a>
+        <br />
+        <small>
+          {{ (item.data.authors or []) | join(", ") }}
+          {% if item.data.pubDate %} — {{ item.data.pubDate }}{% endif %}
+        </small>
+      </li>
+    {% endfor %}
+  </ul>
+</body>
+</html>
