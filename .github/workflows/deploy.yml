@@ -1,9 +1,9 @@
 name: Build & Deploy Scholar Mirror
 
 on:
-  workflow_dispatch:           # allow manual runs
+  workflow_dispatch:
   schedule:
-    - cron: "22 9 * * *"       # daily at 09:22 UTC (~5:22am ET). Adjust if you want.
+    - cron: "22 9 * * *"   # daily 09:22 UTC (adjust as you like)
 
 permissions:
   contents: read
@@ -26,15 +26,12 @@ jobs:
         with:
           node-version: "20"
 
-      # Skip your repo deps entirely; just install Eleventy for the build
-      - name: Install Eleventy only
-        run: npm install --no-optional --no-audit --no-fund @11ty/eleventy@latest
-
+      # No npm install. Just run your generator and Eleventy via npx.
       - name: Generate Markdown from Wix
         run: node generate-md-from-wix.js
 
-      - name: Build Eleventy site
-        run: npx @11ty/eleventy
+      - name: Build Eleventy site (no install)
+        run: npx @11ty/eleventy@latest
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
