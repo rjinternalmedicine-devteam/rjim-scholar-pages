@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>{{ title }}</title>
+
+    <!-- Google Scholar citation meta tags -->
+    <meta name="citation_title" content="{{ title }}">
+    <meta name="citation_publication_date" content="{{ pubDate }}">
+    {% for author in authors %}
+      <meta name="citation_author" content="{{ author }}">
+    {% endfor %}
+    <meta name="citation_journal_title" content="{{ journal }}">
+    <meta name="citation_doi" content="{{ doi }}">
+    <meta name="citation_pdf_url" content="{{ pdfUrl }}">
+    <meta name="citation_fulltext_html_url" content="{{ wixUrl }}">
+  </head>
+  <body>
+    <h1>{{ title }}</h1>
+    <p><strong>Authors:</strong> {{ authors | join(", ") }}</p>
+    <p><strong>Journal:</strong> {{ journal }}</p>
+    <p><strong>DOI:</strong> <a href="https://doi.org/{{ doi }}">{{ doi }}</a></p>
+    <p><strong>Publication Date:</strong> {{ pubDate }}</p>
+
+    <h2>Abstract</h2>
+    <div>
+      {{ content | safe }}
+    </div>
+
+    <p><a href="{{ wixUrl }}">Read full article on RJIM →</a></p>
+    <p><a href="{{ pdfUrl }}">Download PDF</a></p>
+  </body>
+</html>
